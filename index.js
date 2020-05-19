@@ -1,24 +1,20 @@
-const express = require("express");
-const http = require("http");
 const morgan = require("morgan");
+const express = require("express"),
+  http = require("http");
 const bodyParser = require("body-parser");
-const dishes = require("./routes/dishRouter");
+const dishRouter = require("./routes/dishRouter");
 const promoRouter = require("./routes/promoRouter");
 const leaderRouter = require("./routes/leaderRouter");
 
 const hostname = "localhost";
-const port = 9000;
+const port = 3000;
 
 const app = express();
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-app.use("/dishes", dishes);
+app.use("/dishes", dishRouter);
 app.use("/promotions", promoRouter);
 app.use("/leaders", leaderRouter);
 
-const server = http.createServer(app);
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}`);
-});
+app.listen(port);
